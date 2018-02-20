@@ -1,0 +1,111 @@
+public class ThirdApplication {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Game game = new Monopoly();
+      game.play();
+      System.out.println();
+      game = new Chess();
+      game.play();
+      System.out.println();
+      game = new Checkers();
+      game.play();
+      System.out.println();
+    }
+    
+}
+----------------------------------
+abstract class Game {
+    int maxplayer;
+    int currentplayer;
+   abstract void initializeGame();
+   abstract void makeMove();
+   abstract void endofGame();
+   abstract void printWinner();
+   
+
+   //template method
+   public final void play(){
+
+      //initialize the game
+      initializeGame();
+
+      //start game
+      makeMove();
+
+      //end game
+      endofGame();
+      
+      //winner
+      printWinner();
+   } 
+}
+---------------------------
+public class Chess extends Game {
+    @Override
+   void endofGame() {
+      System.out.println("Chess Game Finished!");
+   }
+
+   @Override
+   void initializeGame() {
+      System.out.println("Chess Game Initialized! Start playing.");
+   }
+
+   @Override
+   void makeMove() {
+      System.out.println("Start move. Checkmate!");
+   } 
+   @Override
+   void printWinner(){
+       System.out.println("You loose.");
+   }
+    
+}
+----------------------
+public class Checkers extends Game {
+    @Override
+   void endofGame() {
+      System.out.println("Checkers Game Finished!");
+   }
+
+   @Override
+   void initializeGame() {
+      System.out.println("Checkers Game Initialized! Start playing.");
+   }
+
+   @Override
+   void makeMove() {
+      System.out.println("Start move. Good Move!");
+   } 
+   @Override
+   void printWinner(){
+       System.out.println("You are the winner.");
+   }
+   }
+-------------------------------
+public class Monopoly extends Game {     
+   
+
+   @Override
+   void initializeGame() {
+       
+      System.out.println("Monopoly Game Initialized! Start playing.");
+   }
+
+   @Override
+   void makeMove() {
+      System.out.println("Start move. Nice move!");
+   } 
+   @Override
+   void endofGame() {
+      System.out.println("Monopoly Game Finished!");
+   }
+   
+   @Override
+   void printWinner(){
+       System.out.println("You are the winner.");
+   }
+   }

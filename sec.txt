@@ -1,0 +1,205 @@
+public class SecondApplication {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+
+        Horse aHorse = new Horse("H001");
+        Bird aBird = new Bird("B001");
+        Griffin aGriffin = new Griffin("G001");
+        Platypus aPlatypus = new Platypus("P001");
+        Cage hCage = new Cage("CH01", aHorse);
+        Cage bCage = new Cage("CB01", aBird);
+        Cage gCage = new Cage("CG01", aGriffin);
+        Cage pCage = new Cage("CB01", aPlatypus);
+        
+        Zoo aZoo = new Zoo(new Cage[]{hCage,bCage,gCage,pCage});
+        
+        hCage.feed();
+        bCage.feed();
+        gCage.feed();
+        pCage.feed();
+        
+        
+        aHorse.run();
+        aBird.fly();
+        aGriffin.fly();
+        aGriffin.shout();
+        
+        System.out.println(aZoo.searchAnimalByCages("CB01").getAnimalId());
+        
+    
+    }
+    
+}
+-------------------------------
+public class Zoo {
+    private Cage[] cages;
+    
+    public Zoo(Cage[] cage){
+        this.cages = cage;
+    }
+    
+    /**
+     *
+     * @param cageId
+     * @return
+     */
+    public Animals searchAnimalByCages(String cageId){
+        for(int i=0; i<cages.length; i++){
+            if(cages[i].getCageId().equalsIgnoreCase(cageId)){
+                return cages[i].getAnimal();
+            }
+        }
+        return null;
+    }
+    
+    public Cage searchCageByAnimal(String animalId){
+        for(int i=0; i<cages.length; i++){
+            if(cages[i].getAnimal().getAnimalId().equalsIgnoreCase(animalId)){
+                return cages[i];
+            }
+        }    
+        return null;
+    }    
+     
+}
+-------------------------------
+abstract class Animals{
+    protected String animalId;
+    
+    public Animals(String animalId){
+        this.animalId = animalId;
+    }
+    public void eat(){
+        System.out.println("Animal is Eating");
+    }
+    
+    public String getAnimalId(){
+    
+        return this.animalId;
+    }
+}
+--------------
+public class Cage {
+    Animals animal;
+    private String cageId;
+
+    public Cage(String cageId, Animals animal) {
+        this.cageId = cageId;
+        this.animal = animal;
+    }
+    
+    public void feed(){
+        animal.eat();
+    }
+    
+    public String getCageId(){
+        return this.cageId;
+    }
+    
+    public Animals getAnimal(){
+    
+        return this.animal;
+    }
+
+}
+--------------------------
+public class Bird extends Animals implements Fly{
+
+    public Bird(String animalId) {
+        super(animalId);
+    }
+    @Override
+    public void fly(){
+        System.out.println("Bird can fly");
+    }
+}
+---------------------
+public class Griffin extends Animals implements Fly, Run, Shout{
+
+    public Griffin(String animalId) {
+        super(animalId);
+    }
+    @Override
+    public void fly(){
+        System.out.println("Graffin can fly");
+    }
+    @Override
+    public void run(){
+        System.out.println("Graffin can run");
+    }
+    @Override
+    public void shout(){
+        System.out.println("Graffin can shout");
+    }
+}
+-----------------------------
+
+public class Horse extends Animals implements Run{
+
+    public Horse(String animalId) {
+        super(animalId);
+    }
+    @Override
+    public void run(){
+    System.out.println("Horse can run");
+}
+}
+------------------
+public class Pegaus extends Animals implements Fly, Run {
+
+    public Pegaus(String animalId) {
+        super(animalId);
+    }
+    @Override
+    public void fly(){
+        System.out.println("Pegaus can fly");
+    }
+    @Override
+    public void run(){
+    System.out.println("Pegaus can run");
+}
+    
+}
+--------------------
+public class Platypus extends Animals implements Run, Shout, Layeggs {
+
+    public Platypus(String animalId) {
+        super(animalId);
+    }
+    @Override
+    public void run(){
+        System.out.println("Platypus can run");
+    }
+    @Override
+    public void shout(){
+        System.out.println("Platypus can shout");
+    }
+    @Override
+    public void layeggs(){
+        System.out.println("Platypus can layeggs");
+    }
+}
+----------------
+public interface Fly {
+    public void fly();
+    
+}
+
+---------------
+public interface Run {
+    public void run();
+    
+}
+-----------------
+public interface Shout {
+    public void shout();
+    
+}
+-------------------
+public interface Layeggs {
+    public void layeggs();
+    
+}

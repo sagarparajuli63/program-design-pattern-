@@ -1,0 +1,47 @@
+public class Singleton {
+
+    private static Singleton singleton = null;
+
+    private String toolbar;
+
+    private String buttons;
+
+    private String frames;
+
+    private String labels;
+
+    private Singleton() {
+        this.buttons = buttons;
+        this.toolbar = toolbar;
+        this.frames = frames;
+        this.labels = labels;
+        
+    }
+
+    public static Singleton getInstance() {
+        if(singleton == null)
+            singleton = new Singleton();
+        return singleton;
+        
+    }
+}
+-------------------
+public class MainClass {
+
+    public static void main(String[] args) {
+        System.out.println("Creating window\n");
+        
+        Singleton firstwindow = Singleton.getInstance();
+         System.out.println("Window created");
+        System.out.println("Assining Buttons, toolbars, frames, labels to first window");
+        
+        
+        Singleton secondwindow = Singleton.getInstance();
+        
+        if(firstwindow.equals(secondwindow)) {
+            System.out.println("\nWindow already opened..close the opened window\n");
+        }
+        
+        
+    }
+}

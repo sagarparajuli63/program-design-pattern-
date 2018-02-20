@@ -1,0 +1,68 @@
+public class Customer {
+    int id;
+    String name;
+    String address;
+    String phoneno;
+    
+    public Customer(){
+     
+}
+}
+---------------
+public class Car {
+    String cid;
+    String model;
+    String make;
+    String year;
+    
+    public Car(){
+    
+}
+}
+-----------
+public class Rental{
+    
+    private final String id = "765";
+    private final Car car;
+    private final Customer customer;
+    LocalDateTime startdate = LocalDateTime.now();
+    LocalDateTime enddate = startdate.plusDays(30);
+    
+    
+    
+    public Rental(Customer customer, Car car, LocalDateTime startdate, LocalDateTime enddate) {
+//    this.id = id;
+
+        this.customer = customer;
+        this.car = car;
+        this.startdate = startdate;
+        this.enddate = enddate;
+    }
+    @Override
+    public String toString(){
+        return "Car Reservation Details:\n " + "Rental ID:" + id + "\nCusomer ID:" + customer.id + "\n" + "Name: " + customer.name + "\n " + "Address: " + customer.address + "\n" + "Contact: " + customer.phoneno + "\n " + "Car Model: " + car.model + "\n " + "Car Make: " + car.make + "\n " + "Car year: " + car.year + "\n " + "Researvation Start: " + startdate + "\n " + "Reservation End: " + enddate;
+    }
+}
+    
+---------------------
+public class Main {
+
+    
+    public static void main(String[] args) {
+
+        Customer aCustomer = new Customer();
+        aCustomer.id = 123;
+        aCustomer.name = "Sagar";
+        aCustomer.address = "LPR";
+        aCustomer.phoneno = "88997744";
+        
+        Car aCar = new Car();
+        aCar.cid = "cid";
+        aCar.model = "Toyota";
+        aCar.make = "98";
+        aCar.year = "2001";
+       Rental r = new Rental(aCustomer, aCar, LocalDateTime.now(), LocalDateTime.now().plusDays(30));
+       System.out.println(r.toString());
+    }
+
+}

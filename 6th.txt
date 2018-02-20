@@ -1,0 +1,95 @@
+public class BorderColor extends ShapeDecorator {
+
+    private String color;
+
+    public BorderColor(Shape s) {
+        super(s);
+        color = "blue";
+    }
+
+    public void draw() {
+        shape.draw();
+        System.out.println("Border color is "+ color);
+    }
+}
+------------------
+public class Circle implements Shape {
+
+    public void draw() {
+        System.out.println("Printing Circle");
+    }
+}
+-----------------
+public class Rectangle implements Shape {
+
+    public void draw() {
+        System.out.println("Printing Rectangle");
+    }
+}
+-----------------
+public class Line implements Shape {
+
+    public void draw() {
+        System.out.println("Printing Line");
+    }
+}
+-------------------
+public class FillColor extends ShapeDecorator {
+
+    private String color;
+
+    public FillColor(Shape s) {
+        super(s);
+        color = "black";
+    }
+
+    public void draw() {
+        System.out.println("Fill color is "+ color +"\n");
+    }
+}
+-------------------
+public interface Shape {
+
+    public void draw();
+}
+-----------------
+public abstract class ShapeDecorator implements Shape {
+
+    protected Shape shape;
+
+    public ShapeDecorator(Shape s) {
+        shape = s;
+    }
+
+    public void draw() {
+        shape.draw();
+    }
+}
+--------------------
+public class MainClass {
+
+    public static void main(String[] args) {
+        Shape shape = new Circle();
+        
+        Shape cbc = new BorderColor(new Circle());
+        Shape cfc = new FillColor(new Circle());
+        
+        Shape lbc = new BorderColor(new Line());
+        Shape lfc = new FillColor(new Line());
+        
+        Shape rbc = new BorderColor(new Rectangle());
+        Shape rfc = new FillColor(new Rectangle());
+        
+        
+        cbc.draw();
+        cfc.draw();
+        
+        lbc.draw();
+        lfc.draw();
+        
+        rbc.draw();
+        rfc.draw();
+        
+        
+    }
+}

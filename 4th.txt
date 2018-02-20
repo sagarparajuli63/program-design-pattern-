@@ -1,0 +1,120 @@
+public interface WeaponBehavior {
+
+    public void useWeapon();
+}
+---------------
+public class AxeBehavior implements WeaponBehavior {
+
+    public void useWeapon() {
+        System.out.println("Weapon AXE selected\n");
+    }
+}
+---------------
+public class ClubBehavior implements WeaponBehavior {
+
+    public void useWeapon() {
+        System.out.println("Weapon CLUB selected\n");
+    }
+}
+-----------------
+public class SwordBehavior implements WeaponBehavior {
+
+    public void useWeapon() {
+        System.out.println("Weapon SWORD selected\n");
+    }
+---------------
+public abstract class Character {
+   
+    protected WeaponBehavior weapon;
+    
+    
+    
+    
+    public void setWeapon(WeaponBehavior w) {
+        this.weapon = w;
+}
+   
+    public void fight() {
+     
+      
+    }
+    
+
+}
+-----------------
+public class King extends Character {
+           
+    
+
+    public void fight() {
+        System.out.println("King");
+        weapon.useWeapon();
+        
+    }
+}
+---------------
+public class Queen extends Character {
+           
+    
+
+    public void fight() {
+        System.out.println("Queen");
+        weapon.useWeapon();
+        
+    }
+}
+--------------------
+public class Knight extends Character {
+           
+    
+
+    public void fight() {
+        System.out.println("Knight");
+        weapon.useWeapon();
+        
+    }
+}
+-------------------
+public class Troll extends Character {
+           
+    
+
+    public void fight() {
+        System.out.println("Troll");
+        weapon.useWeapon();
+        
+    }
+}
+------------------
+public class MainClass {
+
+    public static void main(String[] args) {
+       
+        King k = new King();
+        Queen q = new Queen();
+        Knight kg = new Knight();
+        Troll t = new Troll();
+        
+        AxeBehavior axe = new AxeBehavior();
+        ClubBehavior club = new ClubBehavior();
+        KnifeBehavior knife = new KnifeBehavior();
+        SwordBehavior sword = new SwordBehavior();
+        
+        
+        k.setWeapon(axe);
+        k.fight();
+        
+       
+        q.setWeapon(sword);
+        q.fight();
+        
+       
+        kg.setWeapon(club);
+        kg.fight();
+        
+       
+        t.setWeapon(knife);
+        t.fight();
+        
+    }
+}

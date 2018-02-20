@@ -1,0 +1,160 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Remote{
+    
+    
+   private List<Command> coom = new ArrayList<Command>();
+    
+    public void setCommand(Command cmd){
+    coom.add(cmd);
+    }
+    
+    public void onbuttonWasPressed(){
+     for (Command cmd: coom){
+         cmd.execute();
+     }
+     coom.clear();
+    }
+    public void offbuttonWasPressed(){
+        for (Command cmd : coom){
+            cmd.undo();
+        }
+        coom.clear();
+    }  
+    
+}
+-------------------
+public class Cat {
+
+    public void activate() {
+        System.out.println("The Cat is ACTIVATE");
+    }
+
+    public void deactivate() {
+        System.out.println("The Cat is DEACTIVATE");
+    }
+}
+-----------
+public class CatCommand implements Command {
+
+    private Cat cat;
+
+    public CatCommand(Cat c) {
+        cat = c;
+    }
+
+    public void execute() {
+        cat.activate();
+    }
+
+    public void undo() {
+        cat.deactivate();
+    }
+}
+--------------------
+public interface Command {
+
+    public void execute();
+
+    public void undo();
+
+   
+}
+-------------
+public class Cat {
+
+    public void activate() {
+        System.out.println("The Cat is ACTIVATE");
+    }
+
+    public void deactivate() {
+        System.out.println("The Cat is DEACTIVATE");
+    }
+}
+---------------
+public class GarageDoorCommand implements Command {
+
+    private GarageDoor garage;
+
+    public GarageDoorCommand(GarageDoor g) {
+        garage = g;
+    }
+
+    public void execute() {
+        garage.open();
+    }
+
+    public void undo() {
+        garage.close();
+    }
+}
+-------------
+public class Light {
+
+    public void on() {
+        System.out.println("The light is ON");
+    }
+
+    public void off() {
+        System.out.println("The light is OFF");
+    }
+}
+---------------
+public class LightOnCommand implements Command {
+
+    private Light light;
+
+    public LightOnCommand(Light l) {
+        light = l;
+    }
+
+    public void execute() {
+        light.on();
+    }
+
+    public void undo() {
+        light.off();
+    }
+}
+-----------------
+
+
+public class MainClass {
+
+    public static void main(String[] args) {
+        Remote r = new Remote();
+        
+        Light l = new Light();
+        GarageDoor g = new GarageDoor();
+        Cat c = new Cat();
+        
+        Command light = new LightOnCommand(l);
+        Command garage = new GarageDoorCommand(g);
+        Command cat = new CatCommand(c);
+       
+        r.setCommand(light);
+        r.onbuttonWasPressed();
+        
+        r.setCommand(garage);
+        r.onbuttonWasPressed();
+        
+        r.setCommand(cat);
+        r.offbuttonWasPressed();
+        
+        System.out.println("\nNobody at home\n");
+        
+        r.setCommand(light);
+        r.offbuttonWasPressed();
+        
+        r.setCommand(garage);
+        r.offbuttonWasPressed();
+        
+        r.setCommand(cat);
+        r.onbuttonWasPressed();
+        
+    }
+
+   
+}

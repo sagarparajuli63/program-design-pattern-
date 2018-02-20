@@ -1,0 +1,108 @@
+public interface Iterator {
+
+    public Object next();
+
+    public boolean hasNext();
+}
+-------------
+public interface Reader {
+
+    public Iterator createIterator();
+}
+--------------
+public class ResturantOne implements Iterator {
+
+    private String[] menu1;
+
+    private int pos;
+
+    public ResturantOne() {
+        pos = 0;
+        menu1 = new String[4];
+        menu1[0] = "Array";
+        menu1[1] = "Mutton Soup";
+        menu1[2] = "$10";
+        menu1[3] = "Mutton made with tomato sauce";
+        
+    }
+
+    public Object next() {
+        return menu1[pos++];
+    }
+
+    public boolean hasNext() {
+        if (menu1.length == pos)
+            return false;
+        else 
+            return true;
+    }
+}
+-------------
+
+import static java.util.Spliterators.iterator;
+
+public class ResturantOneReader implements Reader {
+
+    public Iterator createIterator() {
+        return new ResturantOne();
+    }
+}
+------------------
+
+import java.util.ArrayList;
+
+public class ResturantTwo implements Iterator {
+    
+    private ArrayList<String> menu2 = new ArrayList<>(); 
+
+    private int pos;
+
+    public ResturantTwo() {
+        pos = 0;
+        menu2 = new ArrayList<>();
+        menu2.add("ArrayList");
+        menu2.add("Chicken");
+        menu2.add("$5");
+        menu2.add("Chicken made with sweet and garlic soup");
+    }
+
+    public Object next() {
+        return menu2.get(pos++);
+    }
+
+    public boolean hasNext() {
+        if (menu2.size() == pos)
+         return false;
+        else 
+            return true;
+    }
+
+    
+}
+---------------
+public class ResturantTwoReader implements Reader {
+
+    public Iterator createIterator() {
+        return new ResturantTwo();
+    }
+}
+---------------
+public class MainClass {
+
+    public static void main(String[] args) {
+        
+        Reader menu1 = new ResturantOneReader();
+        Reader menu2 = new ResturantTwoReader();
+        
+        Iterator i = menu1.createIterator();
+        print(i);
+        
+        i = menu2.createIterator();
+        print(i);
+    }
+
+    public static void print(Iterator t) {
+        while(t.hasNext())
+            System.out.println(t.next());
+    }
+}
